@@ -1,6 +1,6 @@
 package com.chen.im;
 
-import com.chen.common.protobuf.RequestMessageProto;
+import com.chen.im.common.protobuf.RequestMessageProto;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

@@ -1,7 +1,7 @@
 package com.chen.im.spring.service.user;
 
 
-import com.chen.common.protobuf.RequestMessageProto;
+import com.chen.im.common.protobuf.RequestMessageProto;
 import io.netty.channel.Channel;
 
 public interface UserService {

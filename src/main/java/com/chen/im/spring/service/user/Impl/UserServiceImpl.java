@@ -1,14 +1,14 @@
 package com.chen.im.spring.service.user.Impl;
 
+import com.chen.common.redis.RedisKeys;
 import com.chen.im.AppContext;
+import com.chen.im.common.protobuf.RequestMessageProto;
 import com.chen.im.constant.Constant;
 import com.chen.im.entity.User;
 import com.chen.im.spring.cache.UserCache;
 import com.chen.im.spring.service.BaseService;
 import com.chen.im.spring.service.redis.RedisService;
 import com.chen.im.spring.service.user.UserService;
-import com.chen.common.protobuf.RequestMessageProto;
-import com.chen.common.redis.RedisKeys;
 import com.google.common.collect.ImmutableMap;
 import io.netty.channel.Channel;
 import org.apache.commons.codec.digest.DigestUtils;

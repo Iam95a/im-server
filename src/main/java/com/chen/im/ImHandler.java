@@ -1,11 +1,11 @@
 package com.chen.im;
 
+import com.chen.common.redis.RedisKeys;
+import com.chen.im.common.protobuf.RequestMessageProto;
 import com.chen.im.constant.Constant;
 import com.chen.im.entity.User;
 import com.chen.im.spring.service.redis.RedisService;
 import com.chen.im.spring.service.user.UserService;
-import com.chen.common.protobuf.RequestMessageProto;
-import com.chen.common.redis.RedisKeys;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 

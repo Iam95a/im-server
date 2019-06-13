@@ -1,6 +1,6 @@
 package com.chen.im.spring.service;
 
-import com.chen.common.protobuf.RequestMessageProto;
+import com.chen.im.common.protobuf.RequestMessageProto;
 import io.netty.channel.Channel;
 
 import java.util.Map;

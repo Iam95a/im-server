@@ -1,8 +1,8 @@
 package com.chen.im;
 
+import com.chen.im.common.protobuf.RequestMessageProto;
 import com.chen.im.constant.Constant;
 import com.chen.im.entity.User;
-import com.chen.common.protobuf.RequestMessageProto;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
