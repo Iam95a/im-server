@@ -1,5 +1,6 @@
 package com.chen.im.spring.service.user.Impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.chen.common.redis.RedisKeys;
 import com.chen.im.AppContext;
 import com.chen.im.common.protobuf.RequestMessageProto;
@@ -7,6 +8,7 @@ import com.chen.im.constant.Constant;
 import com.chen.im.entity.User;
 import com.chen.im.spring.cache.UserCache;
 import com.chen.im.spring.service.BaseService;
+import com.chen.im.spring.service.msg.MsgService;
 import com.chen.im.spring.service.redis.RedisService;
 import com.chen.im.spring.service.user.UserService;
 import com.google.common.collect.ImmutableMap;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -23,6 +26,8 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private MsgService msgService;
 
 
     @Override
@@ -46,7 +51,12 @@ public class UserServiceImpl extends BaseService implements UserService {
                 //密码校验通过
                 UserCache.channelUser.put(channel.id().asShortText(), user);
                 UserCache.onlineUser.put(user.getUserId(), user);
-                sendSuccess(Constant.CMD_LOGIN, requestMessage.getMsgId(), ImmutableMap.of("userId", user.getUserId() + ""), channel);
+                List msgs= msgService.getMsgs(user.getUserId());
+                JSONArray jsonArray=new JSONArray(msgs);
+                sendSuccess(Constant.CMD_LOGIN, requestMessage.getMsgId(), ImmutableMap.of("userId", user.getUserId() + "",
+                        "msgs", jsonArray.toJSONString()), channel);
+
+
             } else {
                 //密码错误  直接关了算了
                 //密码错误  直接关了算了

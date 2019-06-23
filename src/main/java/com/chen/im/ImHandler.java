@@ -1,9 +1,11 @@
 package com.chen.im;
 
 import com.chen.common.redis.RedisKeys;
+import com.chen.im.common.dto.SingleMessage;
 import com.chen.im.common.protobuf.RequestMessageProto;
 import com.chen.im.constant.Constant;
 import com.chen.im.entity.User;
+import com.chen.im.spring.service.msg.MsgService;
 import com.chen.im.spring.service.redis.RedisService;
 import com.chen.im.spring.service.user.UserService;
 import io.netty.channel.ChannelHandlerContext;
@@ -35,9 +37,9 @@ public class ImHandler extends ChannelInboundHandlerAdapter {
     }
 
 
-
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        MsgService msgService = AppContext.getContext().getBean(MsgService.class);
         if (msg instanceof RequestMessageProto.RequestMessage) {
             RequestMessageProto.RequestMessage requestMessage = (RequestMessageProto.RequestMessage) msg;
             String command = requestMessage.getCommand();
@@ -46,7 +48,8 @@ public class ImHandler extends ChannelInboundHandlerAdapter {
                 RequestMessageProto.RequestMessage.User loginUser = requestMessage.getUser();
                 String nickname = loginUser.getNickname();
                 String password = loginUser.getPassword();
-                userService.login(nickname, password, ctx.channel(),requestMessage);
+                userService.login(nickname, password, ctx.channel(), requestMessage);
+
             } else if (requestMessage.getCommand().equals(Constant.CMD_SINGLE)) {
                 RequestMessageProto.RequestMessage.SingleMessage singleMessage = requestMessage.getSingleMessage();
                 long receiverId = singleMessage.getReceiverId();
@@ -55,12 +58,10 @@ public class ImHandler extends ChannelInboundHandlerAdapter {
                     if (receiverUser.getChannel().isOpen()) {
                         receiverUser.getChannel().writeAndFlush(requestMessage);
                     } else {
-                        //todo  用户不在线  放到哪里去  上线时候取
-
+                        msgService.saveMsg(new SingleMessage(singleMessage));
                     }
                 } else {
-                    //todo  用户不在线
-
+                    msgService.saveMsg(new SingleMessage(singleMessage));
                 }
             }
         } else {
