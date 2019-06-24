@@ -1,6 +1,6 @@
 package com.chen.im.spring.cache;
 
-import com.chen.im.entity.User;
+import com.chen.im.common.dto.User;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

@@ -2,9 +2,9 @@ package com.chen.im;
 
 import com.chen.common.redis.RedisKeys;
 import com.chen.im.common.dto.SingleMessage;
+import com.chen.im.common.dto.User;
 import com.chen.im.common.protobuf.RequestMessageProto;
-import com.chen.im.constant.Constant;
-import com.chen.im.entity.User;
+import com.chen.im.common.constant.Constant;
 import com.chen.im.spring.service.msg.MsgService;
 import com.chen.im.spring.service.redis.RedisService;
 import com.chen.im.spring.service.user.UserService;
