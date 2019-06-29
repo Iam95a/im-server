@@ -48,7 +48,7 @@ public class ImHandler extends ChannelInboundHandlerAdapter {
 //
 //        System.err.println("server:" + message.getMsgId());
 //        ctx.writeAndFlush(message);
-                MsgService msgService = AppContext.getContext().getBean(MsgService.class);
+        MsgService msgService = AppContext.getContext().getBean(MsgService.class);
         if (msg instanceof RequestMessageProto.RequestMessage) {
             RequestMessageProto.RequestMessage requestMessage = (RequestMessageProto.RequestMessage) msg;
             String command = requestMessage.getCommand();

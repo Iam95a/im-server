@@ -51,8 +51,8 @@ public class UserServiceImpl extends BaseService implements UserService {
                 //密码校验通过
                 UserCache.channelUser.put(channel.id().asShortText(), user);
                 UserCache.onlineUser.put(user.getUserId(), user);
-                List msgs= msgService.getMsgs(user.getUserId());
-                JSONArray jsonArray=new JSONArray(msgs);
+                List msgs = msgService.getMsgs(user.getUserId());
+                JSONArray jsonArray = new JSONArray(msgs);
                 sendSuccess(Constant.CMD_LOGIN, requestMessage.getMsgId(), ImmutableMap.of("userId", user.getUserId() + "",
                         "msgs", jsonArray.toJSONString()), channel);
 
