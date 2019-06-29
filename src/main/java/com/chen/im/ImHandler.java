@@ -8,8 +8,11 @@ import com.chen.im.common.constant.Constant;
 import com.chen.im.spring.service.msg.MsgService;
 import com.chen.im.spring.service.redis.RedisService;
 import com.chen.im.spring.service.user.UserService;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.CharsetUtil;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Description :
  * @Date :  2019/6/11 14:33
  */
+@ChannelHandler.Sharable
 public class ImHandler extends ChannelInboundHandlerAdapter {
     private static Map<Integer, User> onlineMap = new ConcurrentHashMap();
     private static Map<String, User> channelMap = new ConcurrentHashMap<>();
@@ -39,7 +43,12 @@ public class ImHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        MsgService msgService = AppContext.getContext().getBean(MsgService.class);
+//
+//        RequestMessageProto.RequestMessage message = (RequestMessageProto.RequestMessage) msg;
+//
+//        System.err.println("server:" + message.getMsgId());
+//        ctx.writeAndFlush(message);
+                MsgService msgService = AppContext.getContext().getBean(MsgService.class);
         if (msg instanceof RequestMessageProto.RequestMessage) {
             RequestMessageProto.RequestMessage requestMessage = (RequestMessageProto.RequestMessage) msg;
             String command = requestMessage.getCommand();
